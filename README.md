@@ -8,10 +8,32 @@ uses class-based views (CBV).
 ## Requirements:
 ```
 Django==6.0.2
-Python>=3.11
+Python>=3.12
 ```
 
 ## Run the following commands in sequence to deploy the project to a development environment:
+
+```bash
+Creating a Python 3 virtual environment:
+
+1. Update the package list:
+
+$ sudo apt update
+
+2. Install python3-venv
+
+$ sudo apt install python3-venv
+
+3. Create the virtual environment:
+
+$ python3 -m venv my_environment
+
+4. Activate the environment:
+
+$ source my_environment/bin/activate
+```
+
+Now install de Requirements
 
 ```bash
 $ pip install -r requirements.txt
