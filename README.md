@@ -5,7 +5,7 @@ The following is an example of CRUD (Create, Read, Update, Delete) in Django 6.
 ## Requirements:
 ```
 Django==6.0.2
-Python>=3.11
+Python>=3.12
 ```
 
 ## Run the following commands in sequence to deploy the project to a development environment:
