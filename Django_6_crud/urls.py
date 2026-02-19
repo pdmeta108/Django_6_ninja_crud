@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.urls import include, path
-# from .api import api as main_api
-from apps.person.api import api
+from ninja import NinjaAPI, Redoc
+from apps.person.api import router as persons_router
+
+api = NinjaAPI(docs=Redoc())
+api.add_router("/persons", persons_router)
 
 
 urlpatterns = [
@@ -14,9 +17,6 @@ urlpatterns = [
     # Include the URLs from product app.
     path('products/', include('apps.product.urls')),
 
-    # Main API route
-    # path('api/', main_api.urls),
-
-    # Person API route
+    # API route
     path('api/', api.urls)
 ]
