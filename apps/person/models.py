@@ -3,7 +3,7 @@ from django.db import models
 class Person(models.Model):
     """
     Represents a person in the system.
-    
+
     This model stores basic information about individuals including their name,
     email, age, and timestamps for record creation and updates.
     """
@@ -18,7 +18,7 @@ class Person(models.Model):
     def __str__(self):
         """
         String representation of the Person model.
-        
+
         Returns:
             str: The person's name for easy identification in admin and queries.
         """

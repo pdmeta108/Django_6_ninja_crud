@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import include, path
-from ninja import NinjaAPI, Redoc
+from ninja import NinjaAPI
 from apps.person.api import router as persons_router
 
-api = NinjaAPI(docs=Redoc())
+api = NinjaAPI()
 api.add_router("/persons", persons_router)
 
 

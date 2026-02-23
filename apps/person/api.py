@@ -6,22 +6,22 @@ from django.shortcuts import get_object_or_404
 
 router = Router()
 
-@router.get("/persons", response=list[PersonSchema])
+@router.get("/", response=list[PersonSchema])
 def list_persons(request):
     persons = Person.objects.all()
     return persons
 
-@router.get("/persons/{person_id}", response=PersonSchema)
+@router.get("/{person_id}", response=PersonSchema)
 def get_person(request, person_id: int):
     person = get_object_or_404(Person, id=person_id)
     return person
 
-@router.post("/persons", response=PersonSchema)
+@router.post("/", response=PersonSchema)
 def create_person(request, payload: PersonCreateSchema):
     person = Person.objects.create(**payload.dict())
     return person
 
-@router.put("/persons/{person_id}", response=PersonSchema)
+@router.put("/{person_id}", response=PersonSchema)
 def update_person(request, person_id: int, payload: PersonCreateSchema):
     person = get_object_or_404(Person, id=person_id)
     for attr, value in payload.dict().items():
@@ -29,7 +29,7 @@ def update_person(request, person_id: int, payload: PersonCreateSchema):
     person.save()
     return person
 
-@router.delete("/persons/{person_id}")
+@router.delete("/{person_id}")
 def delete_person(request, person_id: int):
     person = get_object_or_404(Person, id=person_id)
     person.delete()
