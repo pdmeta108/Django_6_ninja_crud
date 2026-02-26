@@ -17,6 +17,9 @@ urlpatterns = [
     # Include the URLs from product app.
     path('products/', include('apps.product.urls')),
 
+    # Include the URLs from emailcontact app.
+    path('mail/', include('apps.emailcontact.urls')),
+
     # API route
     path('api/', api.urls)
 ]

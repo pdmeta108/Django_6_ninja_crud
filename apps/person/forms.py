@@ -4,7 +4,7 @@ from .models import Person
 class PersonForm(forms.ModelForm):
     """
     A ModelForm for creating and updating Person instances.
-    
+
     This form handles the validation and presentation of Person data,
     providing a secure interface for person-related operations in views.
     Automatically generated from the Person model with configurable fields.
@@ -13,7 +13,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         """
         Metadata class defining the form's relationship to the model.
-        
+
         Attributes:
             model (Model): The Django model class this form is based on
             fields (list): The model fields to include in the form
