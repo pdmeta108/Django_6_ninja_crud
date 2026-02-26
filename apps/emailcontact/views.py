@@ -94,7 +94,8 @@ def form_valid(form, request):
     email.content_subtype = "html"
 
     file_path = os.path.join(settings.BASE_DIR, 'apps/emailcontact/assets/doge.png')
-    email.attach_file(file_path)
+    if os.path.exists(file_path):
+        email.attach_file(file_path)
 
     try:
         email.send(fail_silently=False)
