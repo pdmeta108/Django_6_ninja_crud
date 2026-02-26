@@ -1,7 +1,11 @@
 from django.conf import settings
 from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.core.mail import BadHeaderError
+
 import os
+import smtplib
 
 from .forms import ContactForm
 
@@ -40,16 +44,17 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             # Process the data in form.cleaned_data
-            form_valid(form)
+            success = form_valid(form, request)
             # After successful POST, redirect to a new URL to prevent double submission
-            return redirect('success')
+            if success:
+                return redirect('success')
     else:
         # If it's a GET request, create an empty form instance to display
         form = ContactForm()
     # Render the template with the form
     return render(request, template_name, {'form': form})
 
-def form_valid(form):
+def form_valid(form, request):
     """Enviar mensaje de correo por consola o servidor SMTP
 
     Parameters
@@ -91,4 +96,13 @@ def form_valid(form):
     file_path = os.path.join(settings.BASE_DIR, 'apps/emailcontact/assets/doge.png')
     email.attach_file(file_path)
 
-    email.send(fail_silently=False)
+    try:
+        email.send(fail_silently=False)
+        return True
+    except BadHeaderError:
+        messages.error(request, "Se detectó un encabezado no válido (intento de inyección).")
+    except smtplib.SMTPException as e:
+        messages.error(request, f"Error del servidor de correo: {e}")
+    except Exception as e:
+        messages.error(request, f"Ocurrió un error inesperado al enviar el correo: {e}")
+    return False
