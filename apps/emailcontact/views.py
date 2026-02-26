@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import render, redirect, get_object_or_404
+import os
 
 from .forms import ContactForm
 
@@ -49,7 +50,7 @@ def contact_view(request):
     return render(request, template_name, {'form': form})
 
 def form_valid(form):
-    """Enviar mensaje de correo por consola
+    """Enviar mensaje de correo por consola o servidor SMTP
 
     Parameters
     ----------
@@ -60,16 +61,34 @@ def form_valid(form):
     subject = form.cleaned_data.get("subject")
     message = form.cleaned_data.get("message")
 
-    full_message = f"""
-        Received message below from {email}, {subject}
-        ________________________
+    # Usar metodo send_mail para enviar correos simples
+    # full_message = f"""
+    #     Received message below from {email}, {subject}
+    #     ________________________
 
 
-        {message}
-        """
-    send_mail(
-        subject="Received contact form submission",
-        message=full_message,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[settings.NOTIFY_EMAIL],
-    )
+    #     {message}
+    #     """
+    # send_mail(
+    #     subject="Received contact form submission",
+    #     message=full_message,
+    #     from_email=settings.DEFAULT_FROM_EMAIL,
+    #     recipient_list=[settings.NOTIFY_EMAIL],
+    #     fail_silently=False,
+    # )
+
+    # Crear objeto email con formato html y una imagen atada al correo y enviar
+    full_message="<div><h2>Mensaje formato HTML con imagen</h2><p>" + email + ", " + subject + "</p><p>" + message + "</p></div>"
+
+    email = EmailMessage(
+            subject='Test Email with Attachment from Django',
+            body=full_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[settings.NOTIFY_EMAIL],
+        )
+    email.content_subtype = "html"
+
+    file_path = os.path.join(settings.BASE_DIR, 'apps/emailcontact/assets/doge.png')
+    email.attach_file(file_path)
+
+    email.send(fail_silently=False)
