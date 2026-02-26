@@ -61,6 +61,12 @@ def form_valid(form, request):
     ----------
     form : ContactForm
         Objeto para manipular datos del formulario de contacto
+    request : request
+        HTTP Request
+
+    Returns
+    -------
+    True | False : boolean
     """
     email = form.cleaned_data.get("email")
     subject = form.cleaned_data.get("subject")
