@@ -124,3 +124,13 @@ STATIC_ROOT = BASE_DIR / "staticfiles"    # For production environment (collects
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email fields
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "cenditel@mail.com"
+NOTIFY_EMAIL = "cenditel@mail.com"
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
+# EMAIL_HOST_USER = "apikey"
+# EMAIL_HOST_PASSWORD = "<sendgrid_password>"
+EMAIL_USE_TLS = False
