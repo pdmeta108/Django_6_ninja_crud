@@ -109,7 +109,7 @@ from django.conf import settings
 ### 3. Ejecutar el Envío de Prueba
 Utiliza la función send_mail. Si la configuración es correcta, la consola devolverá un 1 (indicando que 1 mensaje fue enviado con éxito).
 
-```
+```bash
 send_mail(
     subject='Prueba de Notificación Django',
     message='Este es un mensaje de prueba enviado desde la consola de Python.',
