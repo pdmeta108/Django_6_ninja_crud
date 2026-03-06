@@ -34,7 +34,7 @@ def create_person(request):
         HttpResponse: Rendered form template (GET) or redirect to home (POST)
     """
     print(request.FILES)
-    if request.method == 'POST' and request.FILES['document']:
+    if request.method == 'POST' and request.FILES['document'] and request.FILES['dni_file']:
         form = PersonForm(request.POST, request.FILES)
         if form.is_valid():
             # myfile = request.FILES['document']

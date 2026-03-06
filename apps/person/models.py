@@ -8,17 +8,34 @@ def validator_file_size_limit(value):
 
         Parameters
         ----------
-        value : value
+        value : File
             Archivo
 
         Raises
         ------
         ValidationError
-            _description_
+            Error de validacion al superar el limite de peso del archivo
         """
         limit = 2 * 1024 * 1024
         if value.size > limit:
             raise ValidationError('File too large. Size should not exceed 2 MiB.')
+
+def get_media_folder_name(instance, file_name='dni'):
+    """generar una ruta nueva para el archivo de imagen del modelo
+
+    Parameters
+    ----------
+    instance : Person
+        instancia del modelo
+    file_name : str, optional
+        nombre del archivo con la extension, by default 'dni'
+
+    Returns
+    -------
+    str
+        ruta nueva del archivo de imagen
+    """
+    return f'dni/{instance.name}/{file_name}'
 
 class Person(models.Model):
     """
@@ -38,6 +55,16 @@ class Person(models.Model):
         validators=[
             FileExtensionValidator(
                 ['pdf', 'docx', 'odt']
+            ),
+            validator_file_size_limit
+        ],
+    )
+    dni_file = models.ImageField(
+        default="",
+        upload_to=get_media_folder_name,
+        validators=[
+            FileExtensionValidator(
+                ['jpg', 'jpeg', 'png', 'avif']
             ),
             validator_file_size_limit
         ],
