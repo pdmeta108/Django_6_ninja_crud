@@ -34,14 +34,13 @@ def create_person(request):
         HttpResponse: Rendered form template (GET) or redirect to home (POST)
     """
     print(request.FILES)
-    if request.method == 'POST' and request.FILES['dni_file']:
+    if request.method == 'POST' and request.FILES['document']:
         form = PersonForm(request.POST, request.FILES)
         if form.is_valid():
-            myfile = request.FILES['dni_file']
-            print(myfile)
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            uploaded_file_url = fs.url(filename)
+            # myfile = request.FILES['document']
+            # fs = FileSystemStorage()
+            # filename = fs.save(myfile.name, myfile)
+            # uploaded_file_url = fs.url(filename)
             form.save()
             return redirect('person:home')
     else:

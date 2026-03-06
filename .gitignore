@@ -9,4 +9,5 @@ db.sqlite3
 Django_6_crud/settings.py
 apps/person/migrations
 apps/product/migrations
+storage/*
 .python-version
