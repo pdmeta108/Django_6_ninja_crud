@@ -61,3 +61,26 @@ application for managing people records.
 ![3.png](3.png "3.png")
 
 ![4.png](4.png "4.png")
+
+## Almacenamiento de archivos
+
+Para el correcto funcionamiento del almacenamiento de archivos, se deben establecer los valores necesarios para la ubicación del directorio de archivos a utilizar por la aplicación. Estas variables son:
+
+```bash
+MEDIA_URL
+MEDIA_ROOT
+```
+
+Donde:
+
+Variable | Descripción | Ejemplo de Valor |
+| :--- | :--- | :--- |
+| **`MEDIA_URL`** | Ruta absoluta en el sistema de archivos donde se guardarán los archivos | `'storage/` |
+| **`MEDIA_ROOT`** | URL pública para acceder a esos archivos desde el navegador | `os.path.join(BASE_DIR, 'storage')` |
+
+*Nota*: Para que estos archivos sean visibles durante el desarrollo, añade esto a tu urls.py principal
+
+```bash
+if settings DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
