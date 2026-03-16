@@ -1,0 +1,32 @@
+services:
+  crud-app:
+    image: crud-app:latest
+    build:
+      context: .
+    container_name: django-crud
+    ports:
+      - "8000:8000"
+    command: ["sh", "./start.sh"]
+    env_file:
+      - .env
+#     environment:
+#       - DATABASE_HOST=postgres
+#       - DATABASE_USER=postgres
+#       - DATABASE_PASSWORD=postgres
+#       - DATABASE_NAME=django_ninja_database
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: django_ninja_database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432"
+
+volumes:
+  postgres_data:

@@ -1,13 +1,15 @@
 FROM python:3.14-slim-bookworm
 
-WORKDIR /app
+# copies files and directories from current directory to WORKDIR
+COPY . .
 
+# install system dependencies
 RUN apt-get update
 
-COPY requirements.txt .
-
+# install dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+COPY ./start.sh .
 RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
 
 EXPOSE 8000
